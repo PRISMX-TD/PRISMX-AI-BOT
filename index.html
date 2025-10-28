@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>账户资金曲线与交易结果</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="brand">PRISM X | 账户资金与交易看板</div>
+    <div class="meta"><span id="lastUpdated">最后更新: --</span></div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <div class="panel-header">
+        <h3>资金曲线</h3>
+      </div>
+      <div class="panel-body">
+        <div id="equityChart" class="chart"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h3>交易历史（已平仓）</h3>
+      </div>
+      <div class="panel-body" id="tradesContainer">
+        <div class="empty">正在加载...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>纯前端静态页面 · 数据来自仓库 data/*.json</span>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
+
