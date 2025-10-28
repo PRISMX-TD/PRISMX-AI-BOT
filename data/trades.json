@@ -102,5 +102,18 @@
     "pnl_percent": -1.2987109808920938,
     "duration": "未知",
     "result": "success"
+  },
+  {
+    "close_time": "2025-10-29 06:52:51",
+    "entry_time": "未知",
+    "symbol": "LINKUSDT",
+    "side": "Buy",
+    "qty": 16.9,
+    "entry_price": 17.74346746,
+    "close_price": 17.901,
+    "pnl": 2.6622999259999705,
+    "pnl_percent": 0.8878340175342382,
+    "duration": "未知",
+    "result": "success"
   }
 ]
