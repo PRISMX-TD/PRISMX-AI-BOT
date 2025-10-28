@@ -89,5 +89,18 @@
     "pnl_percent": -2.6636893032328564,
     "duration": "未知",
     "result": "success"
+  },
+  {
+    "close_time": "2025-10-29 04:46:56",
+    "entry_time": "未知",
+    "symbol": "ETHUSDT",
+    "side": "Buy",
+    "qty": 0.04,
+    "entry_price": 4023.99,
+    "close_price": 3971.73,
+    "pnl": -2.0903999999999905,
+    "pnl_percent": -1.2987109808920938,
+    "duration": "未知",
+    "result": "success"
   }
 ]
