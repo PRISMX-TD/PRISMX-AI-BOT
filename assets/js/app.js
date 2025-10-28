@@ -72,9 +72,36 @@
     }
   }
 
+  function renderAiLogs(list){
+    const wrap = $("aiLogsContainer");
+    if(!list || list.length===0){ wrap.innerHTML = '<div class="empty">暂无AI日志</div>'; return; }
+    // 只显示最近50条，最新在前
+    const logs = list.slice(-50).reverse();
+    const html = logs.map(l=>{
+      const time = l.time || l.timestamp || '';
+      const analysis = l.analysis || l.text || '';
+      return `<div class="log">
+        <div class="log-time">${time}</div>
+        <div class="log-analysis">${analysis}</div>
+      </div>`;
+    }).join('');
+    wrap.innerHTML = html;
+  }
+
+  async function loadAiLogs(){
+    try{
+      const data = await fetchJSON('ai_logs.json');
+      renderAiLogs(data || []);
+    }catch(e){
+      console.error(e);
+      $("aiLogsContainer").innerHTML = '<div class="empty">AI日志加载失败</div>';
+    }
+  }
+
   async function refresh(){
     const ts = await loadEquity();
     await loadTrades();
+    await loadAiLogs();
     if(ts) $('lastUpdated').textContent = `最后更新: ${new Date(ts).toLocaleString()}`;
   }
 

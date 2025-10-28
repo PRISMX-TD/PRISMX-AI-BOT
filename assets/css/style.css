@@ -10,5 +10,8 @@
 .footer{padding:12px 18px;border-top:1px solid #222;color:#666;text-align:center}
 .empty{color:#777;text-align:center;padding:24px}
 .trade{display:grid;grid-template-columns:120px 90px 1fr 120px 120px;gap:8px;padding:10px 0;border-bottom:1px dashed #222;font-size:13px}
+.log{padding:10px 0;border-bottom:1px dashed #222}
+.log-time{color:#888;font-size:12px;margin-bottom:6px}
+.log-analysis{white-space:pre-wrap;line-height:1.5}
 .pnl-pos{color:#34d399;font-weight:600}.pnl-neg{color:#ef4444;font-weight:600}
 
