@@ -76,5 +76,18 @@
     "pnl_percent": -1.1639619473978844,
     "duration": "未知",
     "result": "success"
+  },
+  {
+    "close_time": "2025-10-29 04:34:53",
+    "entry_time": "未知",
+    "symbol": "BTCUSDT",
+    "side": "Buy",
+    "qty": 0.001,
+    "entry_price": 115448.9,
+    "close_price": 112373.7,
+    "pnl": -3.075199999999997,
+    "pnl_percent": -2.6636893032328564,
+    "duration": "未知",
+    "result": "success"
   }
 ]
