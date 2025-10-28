@@ -3,47 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>账户资金曲线与交易结果</title>
+  <title>PRISM X | AI 交易竞技场</title>
   <link rel="stylesheet" href="assets/css/style.css" />
   <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 </head>
 <body>
-  <header class="header">
-    <div class="brand">PRISM X | 账户资金与交易看板</div>
-    <div class="meta"><span id="lastUpdated">最后更新: --</span></div>
+  <!-- 顶部导航栏 -->
+  <header class="top-header">
+    <div class="header-content">
+      <div class="logo">
+        <span class="logo-text">PRISM X</span>
+        <span class="logo-subtitle">AI Trading</span>
+      </div>
+      
+      <nav class="nav-links">
+        <a href="#" class="nav-link active">交易看板</a>
+        <a href="#" class="nav-link">AI日志</a>
+      </nav>
+      
+      <div class="account-summary">
+        <div class="performance-item">
+          <span class="label">最高:</span>
+          <span class="value positive" id="highestValue">--</span>
+        </div>
+        <div class="performance-item">
+          <span class="label">最低:</span>
+          <span class="value negative" id="lowestValue">--</span>
+        </div>
+        <div class="last-updated">
+          <span id="lastUpdated">最后更新: --</span>
+        </div>
+      </div>
+    </div>
+    
   </header>
 
-  <main class="container">
-    <section class="panel">
-      <div class="panel-header">
-        <h3>资金曲线</h3>
+  <!-- 主内容区域 -->
+  <main class="main-content">
+    <!-- 左侧图表区域 -->
+    <div class="chart-section">
+      <div class="chart-header">
+        <h2>账户总值</h2>
+        <div class="chart-controls">
+          <div class="last-updated">
+            <span id="lastUpdated">最后更新: --</span>
+          </div>
+        </div>
       </div>
-      <div class="panel-body">
+      <div class="chart-container">
         <div id="equityChart" class="chart"></div>
       </div>
-    </section>
+    </div>
 
-    <section class="panel">
-      <div class="panel-header">
-        <h3>交易历史（已平仓）</h3>
+    <!-- 右侧边栏 -->
+    <div class="sidebar">
+      <div class="sidebar-tabs">
+        <button class="tab-btn active" data-tab="trades">已完成交易</button>
+        <button class="tab-btn" data-tab="ai-logs">AI日志</button>
       </div>
-      <div class="panel-body" id="tradesContainer">
-        <div class="empty">正在加载...</div>
+      
+      <div class="tab-content">
+        <!-- 交易历史标签页 -->
+        <div class="tab-panel active" id="trades-panel">
+          <div class="panel-header">
+            <h3>显示最近100笔交易</h3>
+          </div>
+          <div class="trades-list" id="tradesContainer">
+            <div class="empty">正在加载...</div>
+          </div>
+        </div>
+        
+        <!-- AI日志标签页 -->
+        <div class="tab-panel" id="ai-logs-panel">
+          <div class="panel-header">
+            <h3>AI决策日志</h3>
+          </div>
+          <div class="ai-logs-list" id="aiLogsContainer">
+            <div class="empty">正在加载...</div>
+          </div>
+        </div>
       </div>
-    </section>
-
-    <section class="panel">
-      <div class="panel-header">
-        <h3>AI 决策日志</h3>
-      </div>
-      <div class="panel-body" id="aiLogsContainer">
-        <div class="empty">正在加载...</div>
-      </div>
-    </section>
+    </div>
   </main>
 
-  <footer class="footer">
-    <span>纯前端静态页面 · 数据来自仓库 data/*.json</span>
+  <!-- 底部性能摘要 -->
+  <footer class="performance-footer">
+    <div class="bot-performance">
+      <div class="bot-item">
+        <span class="bot-name">PRISM X Bot</span>
+        <span class="bot-value" id="botValue">--</span>
+      </div>
+    </div>
   </footer>
 
   <script src="assets/js/app.js"></script>
