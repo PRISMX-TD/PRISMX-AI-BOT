@@ -1,2 +1,12 @@
 [
+  {
+    "symbol": "LINKUSDT",
+    "side": "Buy",
+    "quantity": "8.3",
+    "entry_price": "18.15",
+    "exit_price": "18.073",
+    "pnl": "-0.64",
+    "pnl_pct": "-0.42%",
+    "timestamp": "2025-10-29 20:55:26"
+  }
 ]
