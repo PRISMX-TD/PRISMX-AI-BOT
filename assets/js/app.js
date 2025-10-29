@@ -81,7 +81,7 @@ function initializeChart() {
         color: '#8892b0',
         fontSize: 12,
         formatter: function(value) {
-          return '$' + value.toLocaleString();
+          return '$' + value.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
         }
       },
       splitLine: {
@@ -101,7 +101,8 @@ function initializeChart() {
         if (params.length === 0) return '';
         const data = params[0];
         const time = new Date(data.axisValue).toLocaleString('zh-CN');
-        return `${time}<br/>账户净值: $${data.value.toLocaleString()}`;
+        const value = parseFloat(data.value) || 0;
+        return `${time}<br/>账户净值: $${value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
       }
     },
     series: [{
@@ -163,15 +164,22 @@ async function loadAccountHistory() {
     if (!response.ok) throw new Error('网络错误');
     
     const data = await response.json();
-    currentData.accountHistory = data.values || [];
     
-    // 处理时间戳
-    if (data.timestamps && data.timestamps.length > 0) {
-      currentData.accountHistory = currentData.accountHistory.map((value, index) => [
-        new Date(data.timestamps[index]).getTime(),
-        value
+    // 处理时间戳和数值
+    if (data.timestamps && data.values && data.timestamps.length === data.values.length) {
+      currentData.accountHistory = data.timestamps.map((timestamp, index) => [
+        new Date(timestamp).getTime(),
+        parseFloat(data.values[index]) || 0
+      ]);
+    } else {
+      // 如果没有时间戳，使用当前时间
+      currentData.accountHistory = (data.values || []).map((value, index) => [
+        Date.now() - (data.values.length - 1 - index) * 60000, // 每分钟一个点
+        parseFloat(value) || 0
       ]);
     }
+    
+    console.log('账户历史数据:', currentData.accountHistory);
   } catch (error) {
     console.error('加载账户历史失败:', error);
     currentData.accountHistory = [];
@@ -210,7 +218,43 @@ async function loadAILogs() {
 function updateChart() {
   if (!equityChart || currentData.accountHistory.length === 0) return;
   
+  // 计算Y轴范围
+  const values = currentData.accountHistory.map(item => item[1]);
+  const minValue = Math.min(...values);
+  const maxValue = Math.max(...values);
+  const range = maxValue - minValue;
+  const padding = range * 0.1; // 10% padding
+  
+  // 智能计算X轴范围（时间）
+  const times = currentData.accountHistory.map(item => item[0]);
+  const maxTime = Math.max(...times);
+  const minTime = Math.min(...times);
+  const totalTimeRange = maxTime - minTime;
+  
+  // 根据数据量自动调整时间窗口
+  let timeWindow;
+  if (currentData.accountHistory.length <= 10) {
+    // 数据少时，显示所有数据
+    timeWindow = totalTimeRange;
+  } else if (currentData.accountHistory.length <= 50) {
+    // 中等数据量，显示最近12小时
+    timeWindow = 12 * 60 * 60 * 1000;
+  } else {
+    // 数据多时，显示最近24小时
+    timeWindow = 24 * 60 * 60 * 1000;
+  }
+  
+  const actualMinTime = Math.max(minTime, maxTime - timeWindow);
+  
   const option = {
+    xAxis: {
+      min: actualMinTime,
+      max: maxTime + (timeWindow * 0.05) // 5% padding
+    },
+    yAxis: {
+      min: Math.max(0, minValue - padding),
+      max: maxValue + padding
+    },
     series: [{
       data: currentData.accountHistory
     }]
