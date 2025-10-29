@@ -128,5 +128,18 @@
     "pnl_percent": -0.2667174222825411,
     "duration": "未知",
     "result": "success"
+  },
+  {
+    "close_time": "2025-10-29 11:19:35",
+    "entry_time": "未知",
+    "symbol": "SOLUSDT",
+    "side": "Buy",
+    "qty": 1.6,
+    "entry_price": 193.915,
+    "close_price": 193.85,
+    "pnl": -0.10399999999999637,
+    "pnl_percent": -0.03351984116752068,
+    "duration": "未知",
+    "result": "success"
   }
 ]
