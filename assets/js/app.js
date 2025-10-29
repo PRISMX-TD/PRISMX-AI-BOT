@@ -281,23 +281,29 @@ async function loadAILogs() {
     const normalized = list.map(item => {
       const t = item.time ?? item.timestamp ?? '';
       const ts = t ? new Date(t).getTime() : 0;
+      // 以“到分钟”为单位做聚合键，避免同一分钟多条拆多卡
+      const minuteKey = t ? new Date(t).toISOString().slice(0,16) : '';
       return {
         time: t,
         ts,
+        minuteKey,
         analysis: item.analysis ?? item.message ?? ''
       };
     });
     // 按时间倒序（最新在最上面）
     normalized.sort((a, b) => b.ts - a.ts);
     // 将相同时间的多段分析合并到同一卡片
-    const grouped = [];
+    const groupedMap = new Map();
     for (const item of normalized) {
-      if (grouped.length > 0 && grouped[grouped.length - 1].time === item.time) {
-        grouped[grouped.length - 1].analysis += '\n\n' + item.analysis;
+      const key = item.minuteKey || item.time || String(item.ts);
+      if (!groupedMap.has(key)) {
+        groupedMap.set(key, { time: item.time, ts: item.ts, analysis: item.analysis });
       } else {
-        grouped.push({ time: item.time, analysis: item.analysis });
+        const prev = groupedMap.get(key);
+        prev.analysis += '\n\n' + item.analysis;
       }
     }
+    const grouped = Array.from(groupedMap.values()).sort((a,b)=> b.ts - a.ts);
     currentData.aiLogs = grouped;
   } catch (error) {
     console.error('加载AI日志失败:', error);
