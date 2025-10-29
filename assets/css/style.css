@@ -445,6 +445,7 @@ body {
   font-size: 0.875rem;
   line-height: 1.5;
   color: #ffffff;
+  white-space: pre-wrap; /* 保留换行，避免一段拆多卡 */
 }
 
 /* 加载状态 */

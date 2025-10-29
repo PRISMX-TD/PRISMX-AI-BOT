@@ -277,10 +277,28 @@ async function loadAILogs() {
     
     const data = await response.json();
     const list = Array.isArray(data) ? data : [];
-    currentData.aiLogs = list.map(item => ({
-      time: item.time ?? item.timestamp ?? '',
-      analysis: item.analysis ?? item.message ?? ''
-    }));
+    // 统一字段并转换为时间戳，便于排序
+    const normalized = list.map(item => {
+      const t = item.time ?? item.timestamp ?? '';
+      const ts = t ? new Date(t).getTime() : 0;
+      return {
+        time: t,
+        ts,
+        analysis: item.analysis ?? item.message ?? ''
+      };
+    });
+    // 按时间倒序（最新在最上面）
+    normalized.sort((a, b) => b.ts - a.ts);
+    // 将相同时间的多段分析合并到同一卡片
+    const grouped = [];
+    for (const item of normalized) {
+      if (grouped.length > 0 && grouped[grouped.length - 1].time === item.time) {
+        grouped[grouped.length - 1].analysis += '\n\n' + item.analysis;
+      } else {
+        grouped.push({ time: item.time, analysis: item.analysis });
+      }
+    }
+    currentData.aiLogs = grouped;
   } catch (error) {
     console.error('加载AI日志失败:', error);
     currentData.aiLogs = [];
