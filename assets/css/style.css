@@ -7,10 +7,11 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background: linear-gradient(135deg, #0a0a0e 0%, #111018 50%, #0b0b12 100%);
   color: #ffffff;
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
 }
 
 /* 顶部导航栏 */
@@ -41,7 +42,7 @@ body {
 
 .logo-icon {
   font-size: 2rem;
-  background: linear-gradient(45deg, #00d4ff, #0099cc);
+  background: linear-gradient(45deg, #b388ff, #7c4dff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -55,7 +56,7 @@ body {
 .logo-main {
   font-size: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(45deg, #00d4ff, #0099cc);
+  background: linear-gradient(45deg, #b388ff, #7c4dff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -71,16 +72,16 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(0, 212, 255, 0.1);
+  background: rgba(155, 92, 255, 0.12);
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  border: 1px solid rgba(0, 212, 255, 0.3);
+  border: 1px solid rgba(155, 92, 255, 0.3);
 }
 
 .live-dot {
   width: 8px;
   height: 8px;
-  background: #00d4ff;
+  background: #9b5cff;
   border-radius: 50%;
   animation: pulse 2s infinite;
 }
@@ -192,7 +193,7 @@ body {
 .stat-value {
   font-size: 1rem;
   font-weight: 600;
-  color: #00d4ff;
+  color: #b388ff;
 }
 
 .chart-container {
@@ -204,6 +205,39 @@ body {
 .chart {
   width: 100%;
   height: 100%;
+}
+
+/* CTA 区域 */
+.cta-box {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cta-title {
+  font-weight: 600;
+  color: #e6dcff;
+}
+
+.cta-button {
+  padding: 0.6rem 1.1rem;
+  background: linear-gradient(45deg, #9b5cff, #7c4dff);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 6px 16px rgba(155, 92, 255, 0.25);
+}
+
+.cta-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(155, 92, 255, 0.35);
 }
 
 /* 侧边栏 */
@@ -238,9 +272,9 @@ body {
 }
 
 .tab-btn.active {
-  background: rgba(0, 212, 255, 0.1);
-  color: #00d4ff;
-  border-bottom: 2px solid #00d4ff;
+  background: rgba(155, 92, 255, 0.12);
+  color: #b388ff;
+  border-bottom: 2px solid #9b5cff;
 }
 
 .tab-btn:hover {
@@ -286,8 +320,8 @@ body {
 }
 
 .panel-badge {
-  background: rgba(0, 212, 255, 0.2);
-  color: #00d4ff;
+  background: rgba(155, 92, 255, 0.20);
+  color: #b388ff;
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
   font-size: 0.75rem;
@@ -312,7 +346,7 @@ body {
 
 .trade-item:hover, .ai-log-item:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(0, 212, 255, 0.3);
+  border-color: rgba(155, 92, 255, 0.3);
 }
 
 .trade-header {
@@ -354,6 +388,20 @@ body {
 .trade-detail {
   display: flex;
   justify-content: space-between;
+}
+
+/* 让某些明细（如时间）独占一行，显示在出场价下面 */
+.trade-detail.full {
+  grid-column: 1 / -1;
+}
+
+/* 让时间放在第二列的下一行（出场价下面） */
+/* 让“时间”正好在出场价的下一行（第一列下方） */
+.trade-detail.time-under-exit {
+  grid-column: 1 / 2;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .trade-detail .label {
@@ -413,8 +461,8 @@ body {
 .loading-spinner {
   width: 32px;
   height: 32px;
-  border: 3px solid rgba(0, 212, 255, 0.3);
-  border-top: 3px solid #00d4ff;
+  border: 3px solid rgba(155, 92, 255, 0.3);
+  border-top: 3px solid #9b5cff;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -453,6 +501,22 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+/* 居中版权与免责声明 */
+.footer-note {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0rem; /* 不需要空行 */
+  font-size: 0.8125rem; /* 整体更小 */
+  line-height: 1.35;
+}
+
+.footer-disclaimer {
+  font-size: 0.75rem; /* 更小 */
+  color: #8892b0;
 }
 
 .status-label {
@@ -522,10 +586,52 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 212, 255, 0.5);
+  background: rgba(155, 92, 255, 0.5);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 212, 255, 0.7);
+  background: rgba(155, 92, 255, 0.7);
+}
+
+/* 背景动效（柔和漂浮光斑） */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: auto;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(60px);
+  opacity: 0.55;
+}
+
+body::before {
+  width: 60vw;
+  height: 60vw;
+  left: -15vw;
+  top: -10vw;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(155, 92, 255, 0.22) 0%, rgba(155, 92, 255, 0.10) 35%, rgba(0,0,0,0) 70%);
+  animation: floatBlob1 18s ease-in-out infinite alternate;
+}
+
+body::after {
+  width: 55vw;
+  height: 55vw;
+  right: -10vw;
+  bottom: -15vw;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(124, 77, 255, 0.20) 0%, rgba(124, 77, 255, 0.08) 40%, rgba(0,0,0,0) 75%);
+  animation: floatBlob2 22s ease-in-out infinite alternate;
+}
+
+@keyframes floatBlob1 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(8vw, 4vw, 0) scale(1.05); }
+  100% { transform: translate3d(12vw, 8vw, 0) scale(1.12); }
+}
+
+@keyframes floatBlob2 {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-6vw, -3vw, 0) scale(1.06); }
+  100% { transform: translate3d(-10vw, -6vw, 0) scale(1.12); }
 }

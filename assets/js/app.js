@@ -6,11 +6,40 @@ let currentData = {
   aiLogs: []
 };
 
+// 将字符串数值（可能包含$、逗号、百分号、+/- 等）规整为 Number
+function normalizeNumber(input, isPercent = false) {
+  if (input === null || input === undefined) return 0;
+  if (typeof input === 'number') return input;
+  const s = String(input).replace(/[$,\s]/g, '').replace('%', '');
+  const n = Number(s);
+  if (isNaN(n)) return 0;
+  return isPercent ? n : n; // 这里保留原单位；百分比在展示时已带%
+}
+
 // 初始化
 document.addEventListener('DOMContentLoaded', function() {
   initializeChart();
+  
+  // 恢复上次选择的标签（URL哈希优先，其次 localStorage）
+  const hashTab = (location.hash || '').replace('#', '');
+  let initialTab = 'trades';
+  try {
+    const savedTab = localStorage.getItem('activeTab');
+    initialTab = hashTab || savedTab || 'trades';
+  } catch (e) {
+    initialTab = hashTab || 'trades';
+  }
+  switchTab(initialTab);
+
   loadData();
   setupEventListeners();
+  
+  // 监听地址栏哈希变更（用户手动修改时也能同步）
+  window.addEventListener('hashchange', function() {
+    const tab = (location.hash || '').replace('#', '') || 'trades';
+    switchTab(tab);
+  });
+
   startAutoRefresh();
 });
 
@@ -38,6 +67,18 @@ function switchTab(tabId) {
     panel.classList.remove('active');
   });
   document.getElementById(`${tabId}-panel`).classList.add('active');
+
+  // 记住当前选择并同步到 URL（刷新后保持）
+  try {
+    localStorage.setItem('activeTab', tabId);
+  } catch (e) {}
+  if (location.hash !== `#${tabId}`) {
+    try {
+      history.replaceState(null, '', `#${tabId}`);
+    } catch (e) {
+      location.hash = tabId;
+    }
+  }
 }
 
 // 初始化图表
@@ -48,16 +89,17 @@ function initializeChart() {
   const option = {
     backgroundColor: 'transparent',
     grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
+      left: '2.5%',
+      right: '2.5%',
+      top: '6%',
+      bottom: '6%',
       containLabel: true
     },
     xAxis: {
       type: 'time',
       axisLine: {
         lineStyle: {
-          color: 'rgba(255, 255, 255, 0.2)'
+          color: 'rgba(255, 255, 255, 0.25)'
         }
       },
       axisLabel: {
@@ -66,7 +108,7 @@ function initializeChart() {
       },
       splitLine: {
         lineStyle: {
-          color: 'rgba(255, 255, 255, 0.1)'
+          color: 'rgba(255, 255, 255, 0.06)'
         }
       }
     },
@@ -74,11 +116,11 @@ function initializeChart() {
       type: 'value',
       axisLine: {
         lineStyle: {
-          color: 'rgba(255, 255, 255, 0.2)'
+          color: 'rgba(255, 255, 255, 0.25)'
         }
       },
       axisLabel: {
-        color: '#8892b0',
+        color: '#a6b1c2',
         fontSize: 12,
         formatter: function(value) {
           return '$' + value.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
@@ -86,23 +128,31 @@ function initializeChart() {
       },
       splitLine: {
         lineStyle: {
-          color: 'rgba(255, 255, 255, 0.1)'
+          color: 'rgba(155, 92, 255, 0.06)'
         }
       }
     },
     tooltip: {
       trigger: 'axis',
       backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      borderColor: 'rgba(0, 212, 255, 0.5)',
+      borderColor: 'rgba(155, 92, 255, 0.5)',
       textStyle: {
         color: '#ffffff'
+      },
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: 'rgba(155, 92, 255, 0.35)'
+        }
       },
       formatter: function(params) {
         if (params.length === 0) return '';
         const data = params[0];
         const time = new Date(data.axisValue).toLocaleString('zh-CN');
-        const value = parseFloat(data.value) || 0;
-        return `${time}<br/>账户净值: $${value.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        // ECharts 在使用 [time, value] 形式时，data.value 是一个数组
+        const rawValue = Array.isArray(data.value) ? data.value[1] : data.value;
+        const value = Number(rawValue) || 0;
+        return `${time}<br/>账户净值: $${value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       }
     },
     series: [{
@@ -110,9 +160,13 @@ function initializeChart() {
       type: 'line',
       data: [],
       smooth: true,
+      animationDuration: 600,
+      animationEasing: 'quarticOut',
       lineStyle: {
-        color: '#00d4ff',
-        width: 2
+        color: '#9b5cff',
+        width: 3,
+        shadowBlur: 12,
+        shadowColor: 'rgba(155, 92, 255, 0.35)'
       },
       areaStyle: {
         color: {
@@ -122,12 +176,16 @@ function initializeChart() {
           x2: 0,
           y2: 1,
           colorStops: [
-            { offset: 0, color: 'rgba(0, 212, 255, 0.3)' },
-            { offset: 1, color: 'rgba(0, 212, 255, 0.05)' }
+            { offset: 0.0, color: 'rgba(155, 92, 255, 0.35)' },
+            { offset: 0.6, color: 'rgba(124, 77, 255, 0.18)' },
+            { offset: 1.0, color: 'rgba(0, 0, 0, 0)' }
           ]
         }
       },
-      symbol: 'none'
+      symbol: 'none',
+      emphasis: {
+        focus: 'series'
+      }
     }]
   };
   
@@ -193,7 +251,18 @@ async function loadTrades() {
     if (!response.ok) throw new Error('网络错误');
     
     const data = await response.json();
-    currentData.trades = Array.isArray(data) ? data : [];
+    const list = Array.isArray(data) ? data : [];
+    // 兼容不同字段命名，规范为界面所需字段
+    currentData.trades = list.map(item => ({
+      symbol: item.symbol || item.pair || '--',
+      side: (item.side || item.direction || '').toString().toUpperCase(),
+      qty: normalizeNumber(item.qty ?? item.quantity ?? item.size ?? 0),
+      entry_price: normalizeNumber(item.entry_price ?? item.entry ?? item.open_price ?? 0),
+      close_price: normalizeNumber(item.close_price ?? item.exit_price ?? item.price ?? 0),
+      close_time: item.close_time ?? item.timestamp ?? item.time ?? '',
+      pnl: normalizeNumber(item.pnl ?? item.profit ?? 0),
+      pnl_percent: normalizeNumber(item.pnl_percent ?? item.pnl_pct ?? item.roe ?? 0, true)
+    }));
   } catch (error) {
     console.error('加载交易记录失败:', error);
     currentData.trades = [];
@@ -207,7 +276,11 @@ async function loadAILogs() {
     if (!response.ok) throw new Error('网络错误');
     
     const data = await response.json();
-    currentData.aiLogs = Array.isArray(data) ? data : [];
+    const list = Array.isArray(data) ? data : [];
+    currentData.aiLogs = list.map(item => ({
+      time: item.time ?? item.timestamp ?? '',
+      analysis: item.analysis ?? item.message ?? ''
+    }));
   } catch (error) {
     console.error('加载AI日志失败:', error);
     currentData.aiLogs = [];
@@ -246,6 +319,7 @@ function updateChart() {
   
   const actualMinTime = Math.max(minTime, maxTime - timeWindow);
   
+  const lastPoint = currentData.accountHistory[currentData.accountHistory.length - 1];
   const option = {
     xAxis: {
       min: actualMinTime,
@@ -256,7 +330,31 @@ function updateChart() {
       max: maxValue + padding
     },
     series: [{
-      data: currentData.accountHistory
+      data: currentData.accountHistory,
+      markPoint: lastPoint ? {
+        symbol: 'circle',
+        symbolSize: 8,
+        itemStyle: {
+          color: '#9b5cff',
+          borderColor: '#b388ff',
+          borderWidth: 0
+        },
+        data: [{
+          coord: lastPoint,
+          value: lastPoint[1],
+          label: {
+            show: true,
+            color: '#e6f7ff',
+            padding: [4, 8],
+            backgroundColor: 'rgba(0, 0, 0, 0.45)',
+            borderRadius: 6,
+            formatter: function(p) {
+              const v = Number(p.value) || 0;
+              return `$${v.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            }
+          }
+        }]
+      } : undefined
     }]
   };
   
@@ -300,6 +398,7 @@ function updateTradesList() {
   const tradesHtml = currentData.trades.map(trade => {
     const pnlClass = trade.pnl >= 0 ? 'positive' : 'negative';
     const sideClass = trade.side.toLowerCase();
+    const closeTimeText = trade.close_time ? new Date(trade.close_time).toLocaleString('zh-CN', { hour12: false }) : '--';
     
     return `
       <div class="trade-item">
@@ -320,9 +419,9 @@ function updateTradesList() {
             <span class="label">出场价:</span>
             <span class="value">$${trade.close_price}</span>
           </div>
-          <div class="trade-detail">
+          <div class="trade-detail time-under-exit">
             <span class="label">时间:</span>
-            <span class="value">${trade.close_time}</span>
+            <span class="value">${closeTimeText}</span>
           </div>
         </div>
         <div class="trade-pnl ${pnlClass}">
@@ -380,8 +479,10 @@ function updateLastSyncTime() {
   const now = new Date();
   const timeString = now.toLocaleString('zh-CN');
   
-  document.getElementById('lastUpdated').textContent = `最后更新: ${timeString}`;
-  document.getElementById('lastSyncTime').textContent = timeString;
+  const lastUpdatedEl = document.getElementById('lastUpdated');
+  const lastSyncEl = document.getElementById('lastSyncTime');
+  if (lastUpdatedEl) lastUpdatedEl.textContent = `最后更新: ${timeString}`;
+  if (lastSyncEl) lastSyncEl.textContent = timeString;
 }
 
 // 开始自动刷新
@@ -391,7 +492,8 @@ function startAutoRefresh() {
   
   // 每5秒更新同步状态
   setInterval(() => {
-    document.getElementById('syncStatus').textContent = '同步中';
+    const syncEl = document.getElementById('syncStatus');
+    if (syncEl) syncEl.textContent = '同步中';
   }, 5000);
 }
 
