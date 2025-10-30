@@ -118,5 +118,15 @@
     "pnl": "-0.30",
     "pnl_pct": "-0.20%",
     "timestamp": "2025-10-30 11:29:09"
+  },
+  {
+    "symbol": "LINKUSDT",
+    "side": "Buy",
+    "quantity": "8.3",
+    "entry_price": "17.974",
+    "exit_price": "17.79",
+    "pnl": "-1.53",
+    "pnl_pct": "-1.02%",
+    "timestamp": "2025-10-30 12:16:37"
   }
 ]
