@@ -178,5 +178,25 @@
     "pnl": "-0.90",
     "pnl_pct": "-0.57%",
     "timestamp": "2025-10-30 20:10:22"
+  },
+  {
+    "symbol": "ETHUSDT",
+    "side": "Buy",
+    "quantity": "0.04",
+    "entry_price": "3845.68",
+    "exit_price": "3769.02",
+    "pnl": "-3.07",
+    "pnl_pct": "-1.99%",
+    "timestamp": "2025-10-30 23:38:34"
+  },
+  {
+    "symbol": "ADAUSDT",
+    "side": "Buy",
+    "quantity": "245.0",
+    "entry_price": "0.6105",
+    "exit_price": "0.6024",
+    "pnl": "-1.98",
+    "pnl_pct": "-1.33%",
+    "timestamp": "2025-10-30 23:38:36"
   }
 ]
