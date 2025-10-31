@@ -538,5 +538,25 @@
     "pnl": "+10.84",
     "pnl_pct": "+1.85%",
     "timestamp": "2025-10-31 21:41:37"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "side": "Buy",
+    "quantity": "0.8",
+    "entry_price": "188.28",
+    "exit_price": "187.51",
+    "pnl": "-0.62",
+    "pnl_pct": "-0.41%",
+    "timestamp": "2025-10-31 22:15:15"
+  },
+  {
+    "symbol": "BNBUSDT",
+    "side": "Buy",
+    "quantity": "0.14",
+    "entry_price": "1083.8",
+    "exit_price": "1078.9",
+    "pnl": "-0.69",
+    "pnl_pct": "-0.45%",
+    "timestamp": "2025-10-31 22:15:16"
   }
 ]
