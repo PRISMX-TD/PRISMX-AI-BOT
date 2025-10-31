@@ -318,5 +318,15 @@
     "pnl": "-0.30",
     "pnl_pct": "-0.20%",
     "timestamp": "2025-10-31 08:06:48"
+  },
+  {
+    "symbol": "DOGEUSDT",
+    "side": "Buy",
+    "quantity": "822.0",
+    "entry_price": "0.18271",
+    "exit_price": "0.18315",
+    "pnl": "+0.36",
+    "pnl_pct": "+0.24%",
+    "timestamp": "2025-10-31 08:42:36"
   }
 ]
