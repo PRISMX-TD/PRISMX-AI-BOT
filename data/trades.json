@@ -858,5 +858,25 @@
     "pnl": "-0.10",
     "pnl_pct": "-0.07%",
     "timestamp": "2025-11-01 16:21:29"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "side": "Buy",
+    "quantity": "0.8",
+    "entry_price": "185.86",
+    "exit_price": "186.0",
+    "pnl": "+0.11",
+    "pnl_pct": "+0.08%",
+    "timestamp": "2025-11-01 16:34:06"
+  },
+  {
+    "symbol": "LINKUSDT",
+    "side": "Buy",
+    "quantity": "8.7",
+    "entry_price": "17.328",
+    "exit_price": "17.296",
+    "pnl": "-0.28",
+    "pnl_pct": "-0.18%",
+    "timestamp": "2025-11-01 16:34:07"
   }
 ]
