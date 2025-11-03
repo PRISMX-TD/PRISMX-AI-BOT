@@ -1278,5 +1278,25 @@
     "pnl": "+0.67",
     "pnl_pct": "+0.42%",
     "timestamp": "2025-11-03 20:32:58"
+  },
+  {
+    "symbol": "ETHUSDT",
+    "side": "Buy",
+    "quantity": "0.04",
+    "entry_price": "3712.49",
+    "exit_price": "3712.86",
+    "pnl": "+0.01",
+    "pnl_pct": "+0.01%",
+    "timestamp": "2025-11-03 20:45:55"
+  },
+  {
+    "symbol": "LINKUSDT",
+    "side": "Buy",
+    "quantity": "9.3",
+    "entry_price": "16.083",
+    "exit_price": "16.076",
+    "pnl": "-0.07",
+    "pnl_pct": "-0.04%",
+    "timestamp": "2025-11-03 20:45:57"
   }
 ]
