@@ -1998,5 +1998,25 @@
     "pnl": "-0.98",
     "pnl_pct": "-0.65%",
     "timestamp": "2025-11-06 22:18:09"
+  },
+  {
+    "symbol": "ADAUSDT",
+    "side": "Buy",
+    "quantity": "283.0",
+    "entry_price": "0.5306",
+    "exit_price": "0.5292",
+    "pnl": "-0.40",
+    "pnl_pct": "-0.26%",
+    "timestamp": "2025-11-06 22:43:30"
+  },
+  {
+    "symbol": "LINKUSDT",
+    "side": "Buy",
+    "quantity": "10.1",
+    "entry_price": "14.823",
+    "exit_price": "14.802",
+    "pnl": "-0.21",
+    "pnl_pct": "-0.14%",
+    "timestamp": "2025-11-06 22:43:31"
   }
 ]
