@@ -2208,5 +2208,25 @@
     "pnl": "-2.31",
     "pnl_pct": "-1.59%",
     "timestamp": "2025-11-07 18:39:01"
+  },
+  {
+    "symbol": "BNBUSDT",
+    "side": "Buy",
+    "quantity": "0.16",
+    "entry_price": "949.2",
+    "exit_price": "942.7",
+    "pnl": "-1.04",
+    "pnl_pct": "-0.68%",
+    "timestamp": "2025-11-07 19:46:14"
+  },
+  {
+    "symbol": "ETHUSDT",
+    "side": "Buy",
+    "quantity": "0.23",
+    "entry_price": "3311.6773913",
+    "exit_price": "3238.34",
+    "pnl": "-16.87",
+    "pnl_pct": "-2.21%",
+    "timestamp": "2025-11-07 19:46:16"
   }
 ]
