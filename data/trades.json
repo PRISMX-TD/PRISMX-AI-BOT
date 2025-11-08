@@ -2438,5 +2438,25 @@
     "pnl": "+1.18",
     "pnl_pct": "+0.80%",
     "timestamp": "2025-11-08 16:27:15"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "side": "Buy",
+    "quantity": "0.9",
+    "entry_price": "160.77",
+    "exit_price": "160.94",
+    "pnl": "+0.15",
+    "pnl_pct": "+0.11%",
+    "timestamp": "2025-11-08 18:34:46"
+  },
+  {
+    "symbol": "ADAUSDT",
+    "side": "Buy",
+    "quantity": "259.0",
+    "entry_price": "0.5791",
+    "exit_price": "0.5775",
+    "pnl": "-0.41",
+    "pnl_pct": "-0.28%",
+    "timestamp": "2025-11-08 18:34:47"
   }
 ]
