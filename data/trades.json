@@ -2358,5 +2358,15 @@
     "pnl": "-0.97",
     "pnl_pct": "-0.65%",
     "timestamp": "2025-11-08 10:55:51"
+  },
+  {
+    "symbol": "BNBUSDT",
+    "side": "Buy",
+    "quantity": "0.15",
+    "entry_price": "997.2",
+    "exit_price": "995.7",
+    "pnl": "-0.22",
+    "pnl_pct": "-0.15%",
+    "timestamp": "2025-11-08 13:03:59"
   }
 ]
