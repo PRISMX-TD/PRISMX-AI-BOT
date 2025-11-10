@@ -3028,5 +3028,15 @@
     "pnl": "-1.96",
     "pnl_pct": "-1.30%",
     "timestamp": "2025-11-10 23:20:59"
+  },
+  {
+    "symbol": "ETHUSDT",
+    "side": "Buy",
+    "quantity": "0.04",
+    "entry_price": "3590.53",
+    "exit_price": "3506.17",
+    "pnl": "-3.37",
+    "pnl_pct": "-2.35%",
+    "timestamp": "2025-11-11 00:06:26"
   }
 ]
