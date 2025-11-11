@@ -3538,5 +3538,15 @@
     "pnl": "-0.24",
     "pnl_pct": "-0.16%",
     "timestamp": "2025-11-12 03:26:49"
+  },
+  {
+    "symbol": "ADAUSDT",
+    "side": "Buy",
+    "quantity": "265.0",
+    "entry_price": "0.5655",
+    "exit_price": "0.5634",
+    "pnl": "-0.56",
+    "pnl_pct": "-0.37%",
+    "timestamp": "2025-11-12 03:39:03"
   }
 ]
