@@ -3628,5 +3628,25 @@
     "pnl": "-0.56",
     "pnl_pct": "-0.41%",
     "timestamp": "2025-11-12 06:40:18"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "side": "Buy",
+    "quantity": "1.0",
+    "entry_price": "156.57",
+    "exit_price": "155.97",
+    "pnl": "-0.60",
+    "pnl_pct": "-0.38%",
+    "timestamp": "2025-11-12 07:24:49"
+  },
+  {
+    "symbol": "DOGEUSDT",
+    "side": "Buy",
+    "quantity": "865.0",
+    "entry_price": "0.17356",
+    "exit_price": "0.17278",
+    "pnl": "-0.67",
+    "pnl_pct": "-0.45%",
+    "timestamp": "2025-11-12 07:24:51"
   }
 ]
