@@ -3258,5 +3258,15 @@
     "pnl": "-0.04",
     "pnl_pct": "-0.03%",
     "timestamp": "2025-11-11 15:04:24"
+  },
+  {
+    "symbol": "SOLUSDT",
+    "side": "Buy",
+    "quantity": "0.9",
+    "entry_price": "164.97",
+    "exit_price": "165.01",
+    "pnl": "+0.04",
+    "pnl_pct": "+0.02%",
+    "timestamp": "2025-11-11 15:34:52"
   }
 ]
