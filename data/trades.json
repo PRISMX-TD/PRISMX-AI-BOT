@@ -4008,5 +4008,15 @@
     "pnl": "-0.87",
     "pnl_pct": "-0.58%",
     "timestamp": "2025-11-13 03:03:01"
+  },
+  {
+    "symbol": "BTCUSDT",
+    "side": "Buy",
+    "quantity": "0.001",
+    "entry_price": "101799.6",
+    "exit_price": "101744.5",
+    "pnl": "-0.06",
+    "pnl_pct": "-0.05%",
+    "timestamp": "2025-11-13 05:18:13"
   }
 ]
